@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "9a1a1a80-4788-453e-b865-a2c45bc27dd5",
+		"name": "Cashfree PG Sandbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19102970"
+	},
+	"item": [
+		{
+			"name": "Create Order V3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-version",
+						"value": "2022-09-01",
+						"type": "text"
+					},
+					{
+						"key": "x-client-id",
+						"value": "11123595750e973ecc95c94ec5532111",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "TEST307e06bddd583cc3f86edf02f410fa8a69653d7d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order_amount\": 20000,\r\n    \"order_currency\": \"INR\",\r\n    \"customer_details\": {\r\n        \"customer_id\": \"7112AAA812234\",\r\n        \"customer_email\": \"john@cashfree.com\",\r\n        \"customer_phone\": \"9908734801\"\r\n    },\r\n    \"order_note\": \"tetstst\",\r\n    \"order_expiry_time\":\"2023-07-18T17:43:51+05:30\",\r\n    \"order_meta\": {\r\n        \"notify_url\": \"https://eodw0819y97f3bz.m.pipedream.net\",\r\n        \"return_url\": \"\",\r\n        \"payment_methods\": \"\"\r\n    }\r\n}"
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders",
+				"description": "This will create the order"
+			},
+			"response": []
+		},
+		{
+			"name": "UPI Pay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-version",
+						"value": "2021-05-21",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"payment_session_id\":\"session_N13xkqo9beu4kM2mGjEbxWIkE_pTTHkbbHfkUUGf2IYNEwfNajynqsSDaqB12duvOsh0gtdBSBS_9RuA_pXy01DpqLXq-rzp7dsDac998toF\",\n\t\"payment_method\": {\n\t\t\"upi\": {\n\t\t\t\"channel\": \"link\",\n            \"upi_id\": \"testsuccess@gocash\"\n\t\t}\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders/sessions"
+			},
+			"response": []
+		},
+		{
+			"name": "Card Pay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-version",
+						"value": "2022-09-01",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"payment_session_id\":\"session_xQh79rUxRPmuhaxhYW2KgQ95B6XibDc2JqrpSGrRDir5cRgC13EVFAjGK7iPAryX9E8qDQAFT09lrLXexT-QvZwrON9LSFEfx_WfL6aFt0QY\",\r\n    \"payment_method\": {\r\n\"card\": {\r\n            \"channel\": \"link\",\r\n            \"card_number\": \"4761360079851258\",\r\n            \"card_holder_name\": \"Tushar Gupta\",\r\n            \"card_expiry_mm\": \"06\",\r\n            \"card_expiry_yy\": \"23\",\r\n            \"card_cvv\": \"900\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders/sessions"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the IP address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://ipecho.net/plain",
+				"description": "Know my IP"
+			},
+			"response": []
+		},
+		{
+			"name": "EMI Pay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-version",
+						"value": "2021-05-21",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order_token\": \"bi0c4hDsub0oS77OSLa1\",\r\n    \"payment_method\": {\r\n  \"emi\": {\r\n               \"channel\": \"link\",\r\n               \"card_number\": \"4748461111111111\",\r\n               \"card_expiry_yy\": \"23\",\r\n               \"card_expiry_mm\": \"07\",\r\n               \"card_cvv\": \"123\",\r\n               \"card_bank_name\": \"ICICI\",\r\n               \"emi_tenure\": 3\r\n          }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders/pay"
+			},
+			"response": []
+		},
+		{
+			"name": "Token Vault-Pay and save card details",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-version",
+						"value": "2022-01-01",
+						"type": "text"
+					},
+					{
+						"key": "x-request-id",
+						"value": "95a8d2212324473e165eadb746c4cc5b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"order_token\": \"7dQvloBkscjcKUKkDyBH\",\r\n   \"payment_method\": {\r\n      \"card\": {\r\n         \"channel\": \"link\",\r\n         \"card_number\": \"4893274242424243\",\r\n         \"card_holder_name\": \"Tushar Gupta\", \r\n         \"card_expiry_mm\": \"06\",\r\n         \"card_expiry_yy\": \"22\",\r\n         \"card_cvv\": \"900\"\r\n      }\r\n   },\r\n    \"save_instrument\": true\r\n}"
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders/pay"
+			},
+			"response": []
+		},
+		{
+			"name": "Utility API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "appIdcardBin",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "secretKey",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "appId",
+							"value": "11123595750e973ecc95c94ec5532111",
+							"type": "text"
+						},
+						{
+							"key": "secretKey",
+							"value": "4799a48f47444ca9594bf9aee237c10e43ebaa81",
+							"type": "text"
+						},
+						{
+							"key": "cardBin",
+							"value": "444433",
+							"type": "text"
+						}
+					]
+				},
+				"url": "https://test.cashfree.com/api/v1/vault/cards/cardbin"
+			},
+			"response": []
+		},
+		{
+			"name": "Get instrument ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-client-id",
+						"value": "5709a0de3cc1ab6452f8d0309075",
+						"type": "text"
+					},
+					{
+						"key": "X-client-secret",
+						"value": "a45d1caef2943ae5bc7b4597ccc58aa103163781",
+						"type": "text"
+					},
+					{
+						"key": "x-api-version",
+						"value": "2021-05-21",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://sandbox.cashfree.com/pg/customers/7112AAA812234/instruments?instrument_type=card",
+					"protocol": "https",
+					"host": [
+						"sandbox",
+						"cashfree",
+						"com"
+					],
+					"path": [
+						"pg",
+						"customers",
+						"7112AAA812234",
+						"instruments"
+					],
+					"query": [
+						{
+							"key": "instrument_type",
+							"value": "card"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pay using instrument id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"order_token\": \"Qm2AfsUWiY10KIQQXlkh\",\r\n   \"payment_method\": {\r\n      \"card\": {\r\n         \"channel\": \"link\",\r\n         \"instrument_id\": \"b43a75c1-bfda-4781-85a1-67915a19fcb6\",\r\n         \"card_cvv\": \"900\"\r\n      }\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox.cashfree.com/pg/orders/pay"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status by order id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "11123595750e973ecc95c94ec5532111",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "TEST307e06bddd583cc3f86edf02f410fa8a69653d7d",
+						"type": "text"
+					},
+					{
+						"key": "x-api-version",
+						"value": "2022-01-01",
+						"type": "text"
+					}
+				],
+				"url": "https://sandbox.cashfree.com/pg/orders/8971520311/payments"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch all saved card",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-version",
+						"value": "2022-01-01"
+					},
+					{
+						"key": "x-client-id",
+						"value": "11123595750e973ecc95c94ec5532111"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "TEST307e06bddd583cc3f86edf02f410fa8a69653d7d"
+					}
+				],
+				"url": {
+					"raw": "https://sandbox.cashfree.com/pg/customers/Rahul_token_vault_1/instruments?instrument_type=card",
+					"protocol": "https",
+					"host": [
+						"sandbox",
+						"cashfree",
+						"com"
+					],
+					"path": [
+						"pg",
+						"customers",
+						"Rahul_token_vault_1",
+						"instruments"
+					],
+					"query": [
+						{
+							"key": "instrument_type",
+							"value": "card"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable_payent_mode_in_PG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.cashfree.com/pg/orders/xWBSjh4AXdkc5EqRrVEX/config"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payments for an Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Session ID check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.cashfree.com/pg/orders/session_kOHJhLzJUnoOrMQNpE0g-1YshvCSdxmovMwzIwD3wwazSl8zpAsTsD1RhE0ZMG16LFf4_0z6IFtVMYqZ3lbPoeG1g_xHc_kc7cOK_-LIRHTD/config",
+				"description": "To check the order detail with help of session id"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payment by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-api-version",
+						"value": "2022-09-01"
+					},
+					{
+						"key": "x-client-id",
+						"value": "11123595750e973ecc95c94ec5532111",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "TEST307e06bddd583cc3f86edf02f410fa8a69653d7d",
+						"type": "text"
+					}
+				],
+				"url": "https://sandbox.cashfree.com/pg/orders/order_id/payments"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order Status",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
